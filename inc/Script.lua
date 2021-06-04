@@ -3823,18 +3823,11 @@ Welcome To Source SAKE
 
 🌐┇SAKE TEAM 
 ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉
-📬┇ [Source Channel](https://t.me/TH3BS)
+📬┇ [Source Channel](https://t.me/D3DDDD3)
 
-📊┇ [Source Install](https://t.me/TH3BS/4121)
+📮┇ [Source Dev](https://t.me/mdr_n11)
 
-🆔┇ [Changing ID Channel](https://t.me/Change_id/1)
-
-📋┇ [Explanation Channel](https://t.me/SourceSAKE/1)
-
-┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ 
-📮┇ [Source Programmer](https://t.me/TH3SAKE)
-
-♻️┇ [Twasl Bot Programmer](https://t.me/TH3SAKEBOT)
+♻️┇ [Twasl Bot Programmer](https://t.me/mdr11bot)
 
 ]]
 end
