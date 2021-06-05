@@ -3191,8 +3191,8 @@ end
 if (MsgText[1]== "ايدي" or MsgText[1]=="ايدي 🆔") and msg.type == "pv" then return  "\n"..msg.sender_user_id_.."\n"  end
 
 if MsgText[1]== "قناة السورس 📡" and msg.type == "pv" then
-local inline = {{{text="قنآهہ‏‏ آلسـورس : الـزعـيـم 🍃",url="t.me/th3bs"}}}
-send_key(msg.sender_user_id_,'  [قناة السورس : الـزعـيـم](t.me/th3bs)',nil,inline,msg.id_)
+local inline = {{{text="قنآهہ‏‏ آلسـورس : ساكي",url="t.me/th3bs"}}}
+send_key(msg.sender_user_id_,'  [قناة السورس : ساكي](t.me/sakiteam)',nil,inline,msg.id_)
 return false
 end
 
@@ -3825,6 +3825,8 @@ Welcome To Source SAKE
 ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉
 📬┇ [Source Channel](https://t.me/D3DDDD3)
 
+📬┇ [Source Channel](https://t.me/sakiteam)
+
 📮┇ [Source Dev](https://t.me/mdr_n11)
 
 ♻️┇ [Twasl Bot Programmer](https://t.me/mdr11bot)
@@ -3832,76 +3834,6 @@ Welcome To Source SAKE
 ]]
 end
 
-if MsgText[1] == "متجر الملفات" or MsgText[1]:lower() == "/store"  then
-if not msg.SudoBase then return "📪¦ هذا الامر يخص {المطور الاساسي} فقط  \n" end
-local Get_Files, res = https.request("https://th3bs.github.io/GetFiles.json")
-print(Get_Files)
-print(res)
-if res == 200 then
-local Get_info, res = pcall(JSON.decode,Get_Files);
-if Get_info then
-local TextS = res.IinFormation.Text_Msg
-local TextE = res.IinFormation.BorderBy
-local NumFile = 0
-for name,Course in pairs(res.Plugins) do
-local Check_File_is_Found = io.open("plugins/"..name,"r")
-if Check_File_is_Found then
-io.close(Check_File_is_Found)
-CeckFile = "{✓}"
-else
-CeckFile = "{✖️}"
-end
-NumFile = NumFile + 1
-TextS = TextS..NumFile.."- `"..name..'` » '..CeckFile..'\nl*»»* [{تفاصيل اكثر}]('..Course..")\n------------------------------------\n"
-end
-return TextS..TextE
-else
-return "📛¦ اوبس , هناك خطأ في مصفوفه الجيسون راسل مطور السورس ليتمكن من حل المشكله في اسرع وقت ممكن.!"
-end
-else
-return "📛¦ اوبس , لا يوجد اتصال في الـapi راسل المطور ليتم حل المشكله في اسرع وقت ممكن.!"
-end
-return false
-end
-
-if MsgText[1]:lower() == "sp" and MsgText[2] then
-if not msg.SudoBase then return"📪¦ هذا الامر يخص {المطور الاساسي} فقط  \n" end
-local FileName = MsgText[2]:lower()
-local Check_File_is_Found = io.open("plugins/"..FileName,"r")
-if Check_File_is_Found then
-io.close(Check_File_is_Found)
-TText = "📑¦ الملف موجود بالفعل \n🔖¦ تم تحديث الملف  \n✓"
-else
-TText = "🔖¦ تم تثبيت وتفعيل الملف بنجاح \n✓"
-end
-local Get_Files, res = https.request("https://raw.githubusercontent.com/TH3BS/th3bs.github.io/master/plugins/"..FileName)
-if res == 200 then
-print("DONLOADING_FROM_URL: "..FileName)
-local FileD = io.open("plugins/"..FileName,'w+')
-FileD:write(Get_Files)
-FileD:close()
-Start_Bot()
-
-return TText
-else
-return "📛¦ لا يوجد ملف بهذا الاسم في المتجر \n✖️"
-end
-end
-
-if MsgText[1]:lower() == "dp" and MsgText[2] then
-if not msg.SudoBase then return"📪¦ هذا الامر يخص {المطور الاساسي} فقط  \n" end
-local FileName = MsgText[2]:lower()
-local Check_File_is_Found = io.open("plugins/"..FileName,"r")
-if Check_File_is_Found then
-io.close(Check_File_is_Found)
-os.execute("rm -fr plugins/"..FileName)
-TText = "📑¦ الملف ~⪼ ["..FileName.."] \n🔖¦ تم حذفه بنجاح  \n✓"
-else
-TText = "📑¦ الملف ~⪼ ["..FileName.."] \n🔖¦ بالفعل محذوف  \n✓"
-end
-Start_Bot()
-return TText
-end
 
 if MsgText[1] == "الساعه" then
 return "➖\n⏱¦ الـسـاعه الان : "..os.date("%I:%M%p").."\n"
