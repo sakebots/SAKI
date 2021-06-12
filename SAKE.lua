@@ -413,7 +413,7 @@ ID="InputMessageAudio",
 audio_ = GetInputFile(audio),
 duration_ = "",
 title_ = title or "",
-performer_ = "سورس ماتركس الرسمي",
+performer_ = "سورس ساكي الرسمي",
 caption_ = caption or ""
 }},func or dl_cb,nil)
 end
@@ -1612,9 +1612,9 @@ database:del(bot_id.."SAKE:Lock:Bot:kick"..msg.chat_id_)
 Reply_Status(msg,msg.sender_user_id_,"unlock","• تم فـتح البوتات")  
 return false
 end 
-if text == 'اريد بوت' or text == 'اريد مطور' or text == 'خوش سورس' or text == 'سورس ماتركس' or text == 'اريد بوت تمبلر' or text == 'سورس ماتركس' then
+if text == 'اريد بوت' or text == 'اريد مطور' or text == 'خوش سورس' or text == 'سورس ساكي' or text == 'اريد بوت تمبلر' or text == 'سورس ساكي' then
 Text = [[
-•- DEV @IZlZ7I مبرمج بوتات•
+•- DEV @mdr_n11 مبرمج بوتات•
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -1622,9 +1622,9 @@ end
 if text == 'اريد انصب بوت' or text == 'عجبني البوت' or text == 'منو منصبلك' or text == 'منو مطور السورس' or text == 'مطور السورس' or text == 'انصبلك'  or text == 'انصبلك بوت' then
 Text = [[
 اهلا عزيزي
-متوفر تنصيب بوتات ع سورس ماتركس
+متوفر تنصيب بوتات ع سورس ساكي
 احدث واسرع البوتات وضمان الثقه
-للاستفسار راسل المطور @IZlZ7I
+للاستفسار راسل المطور @mdr_n11
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -2523,7 +2523,7 @@ if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
 send(msg.chat_id_,msg.id_,"• عذرا عزيزي المستخدم هاذا معرف قناة يرجى استخدام الامر بصوره صحيحه !")   
 return false 
 end      
-if result.id_ == tonumber(114518657) then
+if result.id_ == tonumber(1285430527) then
 send(msg.chat_id_, msg.id_, "• لا يمكن { حظر،كتم،طرد،تقيد،الخ ..} مطور السورس \n")
 return false 
 end
@@ -2550,7 +2550,7 @@ if userid == tonumber(Id_Sudo) then
 send(msg.chat_id_, msg.id_, "• لا يمكن { حظر،كتم،طرد،تقيد،الخ ..} مطور البوت الاساسي \n")
 return false 
 end
-if userid == tonumber(114518657) then
+if userid == tonumber(1285430527) then
 send(msg.chat_id_, msg.id_, "• لا يمكن { حظر،كتم،طرد،تقيد،الخ ..} مطور السورس \n")
 return false 
 end
@@ -5162,9 +5162,9 @@ database:set(bot_id.."SAKE:Left:Bot"..msg.chat_id_,true)
 send(msg.chat_id_, msg.id_, "• تم تعطيل مغادرة البوت") 
 return false 
 end
-if text == (database:get(bot_id.."SAKE:Name:Bot") or "ماتركس") then
+if text == (database:get(bot_id.."SAKE:Name:Bot") or "ساكي") then
 
-Namebot = (database:get(bot_id.."SAKE:Name:Bot") or "ماتركس")
+Namebot = (database:get(bot_id.."SAKE:Name:Bot") or "ساكي")
 local namebot = {
 "عمري فداك "..Namebot.. " كول حب ",
 "كول حبيبي ؟ اني "..Namebot,
@@ -5183,7 +5183,7 @@ return false
 end
 
 if text == "بوت" then
-Namebot = (database:get(bot_id.."SAKE:Name:Bot") or "ماتركس")
+Namebot = (database:get(bot_id.."SAKE:Name:Bot") or "ساكي")
 send(msg.chat_id_, msg.id_,"اسمي القميل ["..Namebot.."] ") 
 end
 if text == "تغير اسم البوت" or text == "تغيير اسم البوت" or text == "حذف اسم البوت" then 
@@ -6858,7 +6858,7 @@ if res == 200 then
 local Get_info, res = pcall(JSON.decode,Get_Files);
 vardump(res.plugins_)
 if Get_info then
-local TextS = "\n• اهلا بك في متجر ملفات ماتركس\n• يوجد في المتجر ملف الردود\n• يتم ادراج الملفات في التحديثات القادمه \n  - - - - - - - - -\n"
+local TextS = "\n• اهلا بك في متجر ملفات ساكي\n• يوجد في المتجر ملف الردود\n• يتم ادراج الملفات في التحديثات القادمه \n  - - - - - - - - -\n"
 local TextE = "\n  - - - - - - - - -\n• تدل علامة (✔) الملف مفعل\n".."• تدل علامة (✖) الملف معطل\n"
 local NumFile = 0
 for name,Info in pairs(res.plugins_) do
@@ -6979,19 +6979,19 @@ end
 if text == 'السورس' or text == 'سورس' or text == 'ياسورس' or text == 'يا سورس' then  
 
 Text = [[
-╭• [˹ꪑꪖ𝓽𝘳𝓲᥊ 𝘴ꪮꪊ𝘳𝘴ꫀ˼](t.me/sakiteam) •╮
+╭• [𝑆𝐴𝐾𝐼 𝑇𝐸𝐴𝑀](t.me/sakiteam) •╮
 ]]
 send(msg.chat_id_, msg.id_,Text)
 end
 if text == 'رابط الحذف' or text == 'بوت الحذف' then  
 
-Text = [[༯ ︙  @LC6BOT   ]]
+Text = [[༯ ︙  @mdr_n11bot   ]]
 send(msg.chat_id_, msg.id_,Text)
 end
 if text == 'الاوامر' and Addictive(msg) then  
 
 local Text =[[
-ٴ𝚑𝚒 𝚖𝚊𝚝𝚛𝚒𝚡
+ٴ𝚑𝚒 sᴀᴋɪ
 ٴ  - - - - - - - - -
 • ⓪ ↺ المنظفين
 • ① ↺ الحمايه
@@ -7000,7 +7000,7 @@ local Text =[[
 • ④ ↺ المنشئين
 • ⑤ ↺ المطورين
 ٴ  - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 keyboard = {} 
 keyboard.inline_keyboard = {
@@ -7030,7 +7030,7 @@ Text = [[
 • رفع منظف - تنزيل منظف
 • المنظفين - مسح المنظفين
 — — — —― — — — — ― — — — —
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -7069,7 +7069,7 @@ Text = [[
 • الكلايش
 • السيلفي
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -7133,7 +7133,7 @@ Text = [[
 • مسح الصلاحيات
 • مسح الرابط
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -7172,7 +7172,7 @@ Text = [[
 • تفعيل/تعطيل اوامر التحشيش
 • تفعيل/تعطيل الرابط/جلب الرابط
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -7200,7 +7200,7 @@ Text = [[
 • اضف رسائل + العدد بالرد
 • اضف مجوهرات + العدد بالرد
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -7250,7 +7250,7 @@ Text = [[
 • رفع/تنزيل منشئ اساسي
 • مسح المنشئين الاساسين
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 send(msg.chat_id_, msg.id_,Text)
 return false
@@ -8872,7 +8872,7 @@ local Teext =[[
 • الكلايش
 • السيلفي
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 keyboard = {} 
 keyboard.inline_keyboard = {
@@ -8944,7 +8944,7 @@ local Teext =[[
 • مسح الصلاحيات
 • مسح الرابط
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 keyboard = {} 
 keyboard.inline_keyboard = {
@@ -8991,7 +8991,7 @@ local Teext =[[
 • تفعيل/تعطيل اوامر التحشيش
 • تفعيل/تعطيل الرابط/جلب الرابط
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 keyboard = {} 
 keyboard.inline_keyboard = {
@@ -9027,7 +9027,7 @@ local Teext =[[
 • اضف رسائل + العدد بالرد
 • اضف مجوهرات + العدد بالرد
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 keyboard = {} 
 keyboard.inline_keyboard = {
@@ -9086,7 +9086,7 @@ local Teext =[[
 • رفع/تنزيل منشئ اساسي
 • مسح المنشئين الاساسين
   - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 keyboard = {} 
 keyboard.inline_keyboard = {
@@ -9102,7 +9102,7 @@ end
 elseif Text and Text:match('(.*)/help') then
 if tonumber(Text:match('(.*)/help')) == tonumber(data.sender_user_id_) then
 local Teext =[[
-ٴ𝚑𝚒 𝚖𝚊𝚝𝚛𝚒𝚡
+ٴ𝚑𝚒 sᴀᴋɪ
 ٴ  - - - - - - - - -
 • ⓪ ↺ المنظفين
 • ① ↺ الحمايه
@@ -9111,7 +9111,7 @@ local Teext =[[
 • ④ ↺ المنشئين
 • ⑤ ↺ المطورين
 ٴ  - - - - - - - - -
-𝘊𝘩 -[˹ꪑꪖ𝓽𝘳𝓲᥊˼](t.me/sakiteam)•
+𝘊𝘩 -[sᴀᴋɪ](t.me/sakiteam)•
 ]]
 keyboard = {} 
 keyboard.inline_keyboard = {
@@ -9321,7 +9321,7 @@ if NewCmmd then
 data.message_.content_.text_ = (NewCmmd or data.message_.content_.text_)
 end
 end
-local Name_Bot = (database:get(bot_id.."SAKE:Name:Bot") or "ماتركس")
+local Name_Bot = (database:get(bot_id.."SAKE:Name:Bot") or "ساكي")
 if not database:get(bot_id.."SAKE:Fun_Bots"..msg.chat_id_) then
 if text ==  ""..Name_Bot..' شنو رئيك بهاذا' and tonumber(msg.reply_to_message_id_) > 0 then     
 function FunBot(extra, result, success) 
