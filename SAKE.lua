@@ -6975,13 +6975,14 @@ if text == "تحديث" and DevSAKE(msg) then
 dofile("SAKE.lua")  
 send(msg.chat_id_, msg.id_, "• تم التحديث")
 end
-
 if text == 'السورس' or text == 'سورس' or text == 'ياسورس' or text == 'يا سورس' then  
-
-Text = [[
-╭• [𝑆𝐴𝐾𝐼 𝑇𝐸𝐴𝑀](t.me/sakiteam) •╮
-]]
-send(msg.chat_id_, msg.id_,Text)
+Text = "ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄʀ sᴀᴋɪ\n\n[-  sᴀᴋɪ ᴄʜᴀɴɴᴇʟ  .](http://t.me/d3dddd3)\n\n[-  ᴍᴏᴠɪɴɢ ʙᴏᴛ .](http://t.me/SaKiTeAm/4917)\n\n[-  sᴀᴋɪ ᴅᴇᴠᴇʟᴏᴘᴇʀ  .](http://t.me/mdr_n11)\n\n[-  ʙᴏᴛ sᴀᴋɪ .](http://t.me/mdr_n10bot)"
+keyboard = {} 
+keyboard.inline_keyboard = {
+{{text = '✫: sᴀᴋɪ sᴏᴜʀᴄʀ .',url="t.me/sakiteam"}},
+}
+local msg_id = msg.id_/2097152/0.5
+https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/sakiteam&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
 if text == 'رابط الحذف' or text == 'بوت الحذف' then  
 
