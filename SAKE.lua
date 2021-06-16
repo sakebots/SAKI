@@ -7442,6 +7442,9 @@ local keyboard = {
 {'تحديث السورس ༯','تحديث الملفات ༯'},
 {'قائمه العام ༯'},
 {'اضف كت تويت','حذف كت تويت'},
+{'تفعيل الاشتراك الاجباري','تعطيل الاشتراك الاجباري'},
+{'الاشتراك الاجباري','وضع قناة الاشتراك'},
+{'تغير رساله الاشتراك','حذف رساله الاشتراك','تغير الاشتراك'},
 {'جلب نسخه احتياطيه ༯'},
 {'الغاء ༯'}
 }
@@ -7787,27 +7790,32 @@ if text == 'حذف كليشه ستارت ༯' then
 database:del(bot_id..'Start:Bot') 
 send(msg.chat_id_, msg.id_,'• تم حذف كليشه ستارت') 
 end
-if text and text:match("^- تغير الاشتراك ༯ .$") and DevSAKE(msg) then  
+if text and text:match("تغير الاشتراك") and DevSAKE(msg) then  
 database:setex(bot_id.."add:ch:jm" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 360, true)  
 send(msg.chat_id_, msg.id_, '• حسنآ ارسل لي معرف القناة')
 return false  
 end
-if text and text:match("^- تغير رساله الاشتراك ༯ .$") and DevSAKE(msg) then  
+if text and text:match("تغير رساله الاشتراك") and DevSAKE(msg) then  
 database:setex(bot_id.."textch:user" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 360, true)  
 send(msg.chat_id_, msg.id_, '• حسنآ ارسل لي النص الذي تريده')
 return false  
 end
-if text == "حذف رساله الاشتراك ༯ ." and DevSAKE(msg) then  
+if text == "حذف رساله الاشتراك" and DevSAKE(msg) then  
 database:del(bot_id..'text:ch:user')
 send(msg.chat_id_, msg.id_, "• تم مسح رساله الاشتراك ")
 return false  
 end
-if text and text:match("^- تعين قناة الاشتراك ༯ .$") and DevSAKE(msg) then  
+if text and text:match("وضع قناة الاشتراك") and DevSAKE(msg) then  
 database:setex(bot_id.."add:ch:jm" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 360, true)  
 send(msg.chat_id_, msg.id_, '• حسنآ ارسل لي معرف القناة')
 return false  
 end
-if text == "- تفعيل الاشتراك الاجباري ༯ ." and DevSAKE(msg) then  
+if text and text:match("تعين قناة الاشتراك") and DevSAKE(msg) then  
+database:setex(bot_id.."add:ch:jm" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 360, true)  
+send(msg.chat_id_, msg.id_, '• حسنآ ارسل لي معرف القناة')
+return false  
+end
+if text == "تفعيل الاشتراك الاجباري" and DevSAKE(msg) then  
 if database:get(bot_id..'add:ch:id') then
 local addchusername = database:get(bot_id..'add:ch:username')
 send(msg.chat_id_, msg.id_,"• الاشتراك الاجباري مفعل \n• على القناة ↺ ["..addchusername.."]")
@@ -7817,13 +7825,13 @@ send(msg.chat_id_, msg.id_,"• اهلا عزيزي المطور \n• ارسل 
 end
 return false  
 end
-if text == "- تعطيل الاشتراك الاجباري ༯ ." and DevSAKE(msg) then  
+if text == "تعطيل الاشتراك الاجباري" and DevSAKE(msg) then  
 database:del(bot_id..'add:ch:id')
 database:del(bot_id..'add:ch:username')
 send(msg.chat_id_, msg.id_, "• تم تعطيل الاشتراك الاجباري ")
 return false  
 end
-if text == "- الاشتراك الاجباري ༯ ." and DevSAKE(msg) then  
+if text == "الاشتراك الاجباري" and DevSAKE(msg) then  
 if database:get(bot_id..'add:ch:username') then
 local addchusername = database:get(bot_id..'add:ch:username')
 send(msg.chat_id_, msg.id_, "• تم تفعيل الاشتراك الاجباري \n• على القناة ↺ ["..addchusername.."]")
