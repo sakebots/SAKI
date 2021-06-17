@@ -1771,6 +1771,21 @@ database:set(bot_id.."SAKE:Lock:Cmd"..msg.chat_id_,"kick")
 Reply_Status(msg,msg.sender_user_id_,"lockkick","• تم قفـل الشارحه")  
 return false
 end 
+if text == "غنيلي" then
+data,res = https.request('https://black-source.tk/BlackTeAM/audios.php')
+if res == 200 then
+audios = json:decode(data)
+if audios.Info == true then
+local Text ='• تم اختيار المقطع الصوتي لك'
+keyboard = {} 
+keyboard.inline_keyboard = {
+{{text = '•  sᴀᴋɪ  .',url="t.me/sakiteam"}},
+}
+local msg_id = msg.id_/2097152/0.5
+https.request("https://api.telegram.org/bot"..token..'/sendVoice?chat_id=' .. msg.chat_id_ .. '&voice='..URL.escape(audios.info)..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+end
+end
+end
 if text == "فتح الشارحه" and Addictive(msg) then
 database:del(bot_id.."SAKE:Lock:Cmd"..msg.chat_id_)  
 Reply_Status(msg,msg.sender_user_id_,"unlock","• تم فتح الشارحه")  
@@ -1786,6 +1801,21 @@ database:set(bot_id.."SAKE:Lock:Xn"..msg.chat_id_,"del")
 Reply_Status(msg,msg.sender_user_id_,"lock","• تم قفـل الاباحي")  
 return false
 end 
+if text and text:match('^صوت (.*)$')  and database:get(bot_id.."dl_yt_dl"..msg.chat_id_) == "open" then            
+local Ttext = text:match('^صوت (.*)$') 
+local InfoSearch = https.request('https://mode-dev.tk/tg/search.php?search='..URL.escape(Ttext))
+local JsonSearch = JSON.decode(InfoSearch)
+for k,vv in pairs(JsonSearch.results) do
+if k == 1 then
+local GetStart = io.popen('downloadsh '..vv.url):read('*all')
+if GetStart and GetStart:match('(.*)oksend(.*)') then
+print('download Mp3 done ...\nName : '..vv.title..'\nIdLink : '..vv.url)
+sendAudio(msg.chat_id_,msg.id_,'./'..vv.url..'.mp3',vv.title,'- '..vv.title..'\n- @NiGGa_SoUrcE','@NiGGa_SoUrcE')
+os.execute('rm -rf ./'..vv.url..'.mp3') 
+end
+end
+end
+end
 if text == "قفل الصور بالتقيد" and Addictive(msg) then
 database:set(bot_id.."SAKE:Lock:Photo"..msg.chat_id_,"ked")  
 Reply_Status(msg,msg.sender_user_id_,"lockkid","• تم قفـل الصور")  
@@ -5186,13 +5216,6 @@ if text == "بوت" then
 Namebot = (database:get(bot_id.."SAKE:Name:Bot") or "ساكي")
 send(msg.chat_id_, msg.id_,"اسمي القميل ["..Namebot.."] ") 
 end
-if text == "تغير اسم البوت" or text == "تغيير اسم البوت" or text == "حذف اسم البوت" then 
-if DevSAKE(msg) then
-database:setex(bot_id.."SAKE:Set:Name:Bot"..msg.sender_user_id_,300,true) 
-send(msg.chat_id_, msg.id_,"• ارسل لي الاسم الان ")  
-end
-return false
-end
 
 if text ==("مسح المطرودين") and Addictive(msg) then    
 local function delbans(extra, result)  
@@ -5218,6 +5241,22 @@ database:setex(bot_id.."SAKE:SAKE:Bc:Pv" .. msg.chat_id_ .. ":" .. msg.sender_us
 send(msg.chat_id_, msg.id_,"• ارسل لي سواء ~ { ملصق, متحركه, صوره, رساله }\n• للخروج ارسل الغاء ") 
 return false
 end 
+if text == "تغير اسم البوت" or text == "تغيير اسم البوت" then 
+if SudoBot(msg) then
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'•  𝑾𝒆𝒍𝒄𝒐𝒎𝒆 𝒏𝒊𝒈𝒈𝒂 •\n• لايمكنك استخدام البوت •\n• عليك الاشتراك في القناة •\n• اشترك اولا ['..database:get(bot_id..'add:ch:username')..'•]')
+end
+return false
+end
+database:setex(bot_id..'Set:Name:Bot'..msg.sender_user_id_,300,true) 
+send(msg.chat_id_, msg.id_," ارسل لي الاسم الان ")  
+end
+return false
+end
 if text=="اذاعه" and msg.reply_to_message_id_ == 0 and DevBot(msg) then 
 if database:get(bot_id.."SAKE:Status:Bc") and not DevSAKE(msg) then 
 send(msg.chat_id_, msg.id_,"• الاذاعه معطله من قبل المطور الاساسي")
@@ -6984,10 +7023,417 @@ keyboard.inline_keyboard = {
 local msg_id = msg.id_/2097152/0.5
 https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/sakiteam&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
-if text == 'رابط الحذف' or text == 'بوت الحذف' then  
+if not database:get(bot_id..'MODEDEV:Reply:Mute'..msg.chat_id_) then
+if text == "شنو رئيك بهذا" or text == "شنو رئيك بهذ" or text == "شنو رئيك بهاي" then
+local texting = {"܁•كلش حباب وهاي 🦄💞","܁•الكياته تبعه تقرا 1000 🥺💞","܁•اطلق شخص شحبه 🥺💞","زغبا 😹💞.","܁•يوتيوبر رب المعيدي 😹💞"}
+send(msg.chat_id_, msg.id_, ''..texting[math.random(#texting)]..'')
+return false
+end
+if text == "هينه" or text == "رزله" then
+local texting = {"مااهين حيوانات اني 😹😭💘."," ماا وخر ماسوي شي 😭💘 ."}
+send(msg.chat_id_, msg.id_, ''..texting[math.random(#texting)]..'')
+return false
+end
+if text == "مصه" or text == "بوسه" then
+local texting = {"ما ما ما اخجل شني 😭??💞","ماا وخر مابوسك 😭💞💞"," ما ما ما اخجل شني 😭😭💞"}
+send(msg.chat_id_, msg.id_, ''..texting[math.random(#texting)]..'')
+return false
+end
+if text == 'هلو' then
+TextReply = 'ههلو ، 🥳😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'هلو' then
+TextReply = 'اطلقق هلو'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'شلونكم' then
+TextReply = '• تَمـآمہ وانتا يكمر 🥳💗،'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'شلونك' then
+TextReply = 'تَمـآمہ وانتا 🥺💗،؟'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'تمام' then
+TextReply = 'دﯡٰم حيـﺎُتم ☹️💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'هلاو' then
+TextReply = 'ﮪـلاواتــہ 🥳💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '😐' then
+TextReply = 'شبَيڪہ صافن ☹️💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'هاي' then
+TextReply = 'ههايات ؏ـمريہٰ ☹️💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'رتبتك' then
+TextReply = 'وياك حامي ݪڪࢪوب 🥳😹💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'اريد اكبل' then
+TextReply = 'شـﯡٰفلڪ حاتهہ منـہ. المشرفات 🙊😹💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'لتزحف' then
+TextReply = 'دعوفه يفࢪغ الجفاف 🥺💔😹'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'كلخرا' then
+TextReply = 'هايليش ☹️💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'زاحف' then
+TextReply = 'هسهہ انيـہ زاحف انتا شنو 🙂😹💗بوم ،'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'دي' then
+TextReply = 'امشي بـــ♕ـيكــہ 😒😹💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'فرخ' then
+TextReply = 'اطلعبرا مـنـࢪيـد فروخ بالڪࢪوب 🙁😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'تعالي خاص' then
+TextReply = 'ﺎُݪى متى تضل طامس ياهيه التجي تڪݪها خاص 🙂😹💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'اكرهك' then
+TextReply = 'لا ﺎﻟلهۂَ عليك حبني 💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'احبك' then
+TextReply = 'نࢪتبط لعد 🥺😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'باي' then
+TextReply = 'جذاب ࢪاح يطمس 😭😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'واكف' then
+TextReply = 'شعندڪ واكف متكعد ﺎُحنه مو بصف 😕😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'وين المدير' then
+TextReply = 'طامس ويه مشࢪفه شتريد 😕😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'انجب' then
+TextReply = 'لـﺣﺣظۿﮧ خل ابجي 👍💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'تحبني' then
+TextReply = 'مـﺎُدࢪي خل اسأل حَحبيبتيہ تقبل ☹️😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '🌚' then
+TextReply = 'شبَيڪہ فڪࢪ دومك مصخم 😒😹💞 '
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '🙄' then
+TextReply = 'نࢪ࣪ݪ عينك لتنحول ☺️😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '😒' then
+TextReply = 'شبَيڪہ ☹️💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '😳' then
+TextReply = 'مصدوم منـہ. شفتلك حاتهہ 😕😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '🙁' then
+TextReply = 'شبَيڪہ ضايج 👍💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '🚶💔' then
+TextReply = 'تـ؏ نتمشى سوه 💘🚶🏻‍♂️'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '🙂' then
+TextReply = 'ههـݪـﯡٰ ☹️💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '🌝' then
+TextReply = 'يا ڪمࢪ ☹️💗'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'صباحو' then
+TextReply = 'صبـﺎُحح ﺎُݪعسل 🥳💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'صباح الخير' then
+TextReply = 'صبـﺎُحح ﺎُݪعسل 🥳💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'كفو' then
+TextReply = 'ڪفو منـہ. شاربك 🥳😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '😌' then
+TextReply = 'ده واثق منـہ. حالو 😕😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'اها' then
+TextReply = 'ايـي حتاتي ☹️😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'شسمج' then
+TextReply = 'اسمها سعديه 🥳😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'شسمك' then
+TextReply = 'اسمهہ جبار 😭😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'شوف' then
+TextReply = 'يلاا مو نحولت 😒😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'مساء الخير' then
+TextReply = 'م ـساء ﺎُݪوࢪد 🥳💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'المدرسه' then
+TextReply = 'خࢪب ام ﺎُݪمدرسه 🙂👍💔💔💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'منو ديحذف رسائلي' then
+TextReply = 'شوف ﺎُݪاحداث ☹️😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'البوت واكف' then
+TextReply = 'ايوالله تعبت 💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'غلس' then
+TextReply = 'اهمسݪيہ 🥺😹💞،'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'حارة' then
+TextReply = 'ايـي وﺎﻟلهۂَ ݪمنشئ ميشغل مبرده 👍💔'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'هههه' then
+TextReply = 'ڪياَتۿ الضحكه 😫😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'ههههه' then
+TextReply = 'ڪياَتۿ الضحكه 😫😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == '😹' then
+TextReply = 'ڪياَتۿ الضحكه 😫😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'وين' then
+TextReply = 'ﺎُࢪﯡٰح اطمس ☺️😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'كافي لغوة' then
+TextReply = 'سد حلكهم واحد واحد 🙂😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'نايمين' then
+TextReply = 'شتࢪيد منهم خليهم نايمين 🙂😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'اكو احد' then
+TextReply = 'طﺎُمسين تـ؏ فدشوي 🙂😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'فديت' then
+TextReply = 'احح فديتني 😫😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'شكو' then
+TextReply = 'صارت دمايه بين المشرفين 😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'اوف' then
+TextReply = '؏َـيب وليدي 🙁😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'احبج' then
+TextReply = 'جذاب زاحف ؏ـلى نص الڪـࢪۅبہ 🙂😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+if text == 'انتة منو' then
+TextReply = 'انيـہ حاميكم 😒😹💞'
+send(msg.chat_id_, msg.id_,'['..TextReply..']')
+return false
+end
+end
+if text == 'تفعيل ردود البوت' and Mod(msg) and database:get(bot_id.."AL:Sre:stats") then
+database:del(bot_id..'MODEDEV:Reply:Mute'..msg.chat_id_)
+send(msg.chat_id_, msg.id_,'•تم تفعيل ردود البوت')
+return false
+end
+if text == 'تعطيل ردود البوت' and Mod(msg) and database:get(bot_id.."AL:Sre:stats") then
+database:set(bot_id..'MODEDEV:Reply:Mute'..msg.chat_id_,true)
+send(msg.chat_id_, msg.id_,'•تم تعطيل ردود البوت')
+return false
+end
+if text == "تعطيل الزخرفه" and Owner(msg) and GetSourseMember(msg) then        
+database:set(bot_id.."zhrf_Bots"..msg.chat_id_,"close")
+Reply_Status(msg,msg.sender_user_id_,"lock",'• تم تعطيل الزخرفه')
+return false
+end 
+if text == "تفعيل الزخرفه" and Owner(msg) and GetSourseMember(msg) then        
+database:set(bot_id.."zhrf_Bots"..msg.chat_id_,"open")
+Reply_Status(msg,msg.sender_user_id_,"lock",'• تم تفعيل الزخرفه')
+return false
+end 
+if text == 'رابط الحذف' or text == 'رابط حذف' then
+t =[[
+رابط الحذف في جميع مواقع التواصل
+فكر قبل لا تتسرع وتروح
+ ● رابط حذف  [Telegram](https://my.telegram.org/auth?to=delete) ܁
+ ● رابط حذف [instagram](https://www.instagram.com/accounts/login/?next=/accounts/remove/request/permanent/) ܁
+ ● رابط حذف [Facebook](https://www.facebook.com/help/deleteaccount) ܁
+ ● رابط حذف [Snspchat](https://accounts.snapchat.com/accounts/login?continue=https%3A%2F%2Faccounts.snapchat.com%2Faccounts%2Fdeleteaccount) ܁
+]]
+send(msg.chat_id_, msg.id_,t) 
+return false
+end
+if text == 'استعاده الاوامر' and DevSAKE(msg) then
+database:del(bot_id..'help_text')
+database:del(bot_id..'help1_text')
+database:del(bot_id..'help2_text')
+database:del(bot_id..'help3_text')
+database:del(bot_id..'help4_text')
+database:del(bot_id..'help5_text')
+database:del(bot_id..'help6_text')
+database:del(bot_id..'help7_text')
+database:del(bot_id..'help8_text')
+database:del(bot_id..'help9_text')
+database:del(bot_id..'help10_text')
+send(msg.chat_id_, msg.id_, 'تم استعادة الاوامر القديمه')
+end
+if text == 'تغير امر الاوامر' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه الاوامر')
+database:set(bot_id..'help'..msg.sender_user_id_,'true')
+return false 
+end
+if text == 'تغير امر م1' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م1')
+database:set(bot_id..'help1'..msg.sender_user_id_,'true')
+return false 
+end
 
-Text = [[༯ ︙  @mdr_n11bot   ]]
-send(msg.chat_id_, msg.id_,Text)
+if text == 'تغير امر م2' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م2')
+database:set(bot_id..'help2'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م3' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م3')
+database:set(bot_id..'help3'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م4' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م4')
+database:set(bot_id..'help4'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م5' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م5')
+database:set(bot_id..'help5'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م6' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م6')
+database:set(bot_id..'help6'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م7' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م7')
+database:set(bot_id..'help7'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م8' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م8')
+database:set(bot_id..'help8'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م9' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م9')
+database:set(bot_id..'help9'..msg.sender_user_id_,'true')
+return false 
+end
+
+if text == 'تغير امر م10' and DevSAKE(msg) then
+send(msg.chat_id_, msg.id_, 'الان يمكنك ارسال الكليشه م10')
+database:set(bot_id..'help10'..msg.sender_user_id_,'true')
+return false 
 end
 if text == 'الاوامر' and Addictive(msg) then  
 
@@ -7006,7 +7452,7 @@ local Text =[[
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
-{text = '1', callback_data=msg.sender_user_id_.."/help1"},{text = '2', callback_data=msg.sender_user_id_.."/help2"},{text = '3', callback_data=msg.sender_user_id_.."/help3"},{text = '4', callback_data=msg.sender_user_id_.."/help4"},{text = '5', callback_data=msg.sender_user_id_.."/help5"},
+{text = '0', callback_data=msg.sender_user_id_.."/help0"},{text = '1', callback_data=msg.sender_user_id_.."/help1"},{text = '2', callback_data=msg.sender_user_id_.."/help2"},{text = '3', callback_data=msg.sender_user_id_.."/help3"},{text = '4', callback_data=msg.sender_user_id_.."/help4"},{text = '5', callback_data=msg.sender_user_id_.."/help5"},
 },
 {
 {text = 'اوامر التعطيل والتفعيل', callback_data=msg.sender_user_id_.."/homeaddwd"},
@@ -7198,6 +7644,8 @@ Text = [[
 • اضف/حذف امر
 • الاوامر المضافه
 • حذف/مسح الاوامر المضافه
+• تغير امر الاوامر 
+• استعاده الاوامر
 • اضف رسائل + العدد بالرد
 • اضف مجوهرات + العدد بالرد
   - - - - - - - - -
@@ -7446,6 +7894,7 @@ local keyboard = {
 {'الاشتراك الاجباري','وضع قناة الاشتراك'},
 {'تغير رساله الاشتراك','حذف رساله الاشتراك','تغير الاشتراك'},
 {'جلب نسخه احتياطيه ༯'},
+{"الثانويين","مسح الثانويين"},
 {'الغاء ༯'}
 }
 send_inline_key(msg.chat_id_,Text,keyboard)
@@ -7712,6 +8161,11 @@ end
 if text == 'تعطيل البوت الخدمي ༯' then
 database:set(bot_id..'SAKE:Free:Add:Bots',true) 
 send(msg.chat_id_, msg.id_,'\n• تم تعطيل البوت الخدمي') 
+end
+if text == "تغير اسم البوت" then 
+redis:setex(bot_id.."SAKE:Change:Name:Bot"..msg.sender_user_id_,300,true) 
+send(msg.chat_id_, msg.id_,"ارسل لي الاسم الان")  
+return false
 end
 if text=="اذاعه خاص ༯" and msg.reply_to_message_id_ == 0 then
 if database:get(bot_id.."SAKE:Status:Bc") and not DevSAKE(msg) then 
@@ -7999,6 +8453,18 @@ os.execute('wget https://raw.githubusercontent.com/SAKEIQ/SAKE/master/SAKE.lua')
 os.execute('wget https://raw.githubusercontent.com/SAKEIQ/SAKE/master/start.lua')
 dofile('SAKE.lua')  
 return false
+end
+if text and text:match("^زخرفه (.*)$") and database:get(bot_id.."zhrf_Bots"..msg.chat_id_) == "open" then
+local TextZhrfa = text:match("^زخرفه (.*)$")
+zh = https.request('https://black-source.tk/BlackTeAM/frills.php?en='..URL.escape(TextZhrfa)..'')
+zx = JSON.decode(zh)
+t = "\n•️ قائمه الزخرفه \n ●○━━━━𝐒𝐈━━━━○● \n"
+i = 0
+for k,v in pairs(zx.ok) do
+i = i + 1
+t = t..i.."-  `"..v.."` \n"
+end
+send(msg.chat_id_, msg.id_, t..' ●○━━━━𝐒𝐈━━━━○●\n• اضغط على الاسم ليتم نسخه')
 end
 if text == "تحديث الملفات ༯" then
 dofile("SAKE.lua")  
@@ -8822,7 +9288,7 @@ keyboard.inline_keyboard = {
 {text = 'تفعيل تاك للكل', callback_data=data.sender_user_id_.."/Cick:all"},{text = 'تعطيل تاك للكل', callback_data=data.sender_user_id_.."/unCick:all"},
 },
 {
-{text = 'تفعيل للزخرفه', callback_data=data.sender_user_id_.."/SAKE:zhrf_Bots"},{text = 'تعطيل الزخرفه', callback_data=data.sender_user_id_.."/unSAKE:zhrf_Bots"},
+{text = 'تفعيل الزخرفه', callback_data=data.sender_user_id_.."/SAKE:zhrf_Bots"},{text = 'تعطيل الزخرفه', callback_data=data.sender_user_id_.."/unSAKE:zhrf_Bots"},
 },
 {
 {text = 'تفعيل الابراج', callback_data=data.sender_user_id_.."/SAKE:brj_Bots"},{text = 'تعطيل الابراج', callback_data=data.sender_user_id_.."/unSAKE:brj_Bots"},
